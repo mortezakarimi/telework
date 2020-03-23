@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "telework-69bee": {
+      "hosting": {
+        "telework": [
+          "telework-69bee"
+        ]
+      }
+    }
+  }
+}
