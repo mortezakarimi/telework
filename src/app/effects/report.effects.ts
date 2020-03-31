@@ -11,6 +11,22 @@ import {State} from '../reducers';
 @Injectable()
 export class ReportEffects {
   @Effect()
+  fetchTodayReports = this.actions$.pipe(ofType(ReportsActions.fetchTodayReports),
+    withLatestFrom(this.afAuth.user),
+    switchMap(([actionData, userState]) => (
+        this.afDatabase.list<Report>(`reports/${userState.uid}`, ref => ref.orderByChild('createdAt').startAt((new Date().setHours(0, 0, 0, 0)), 'createdAt')).snapshotChanges().pipe(
+          map(changes =>
+            changes.map(c => ({key: c.payload.key, ...c.payload.val()})).reverse()
+          )
+        )
+      ),
+    ),
+    map((reports: Report[]) => {
+      return ReportsActions.fetchSuccess({reports});
+    })
+  );
+
+  @Effect()
   fetchReports = this.actions$.pipe(ofType(ReportsActions.fetchReports),
     withLatestFrom(this.afAuth.user),
     switchMap(([actionData, userState]) => (

@@ -1,6 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 import {Report} from '../models/report.model';
 
+export const fetchTodayReports = createAction('[Report list] fetch today reports');
 export const fetchReports = createAction('[Report list] fetch reports');
 export const fetchSuccess = createAction('[Report list] fetch success reports', props<{ reports: Report[] }>());
 
