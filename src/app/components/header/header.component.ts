@@ -2,6 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {User} from 'firebase';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {Store} from '@ngrx/store';
+import {State} from '../../reducers';
+import * as reportListActions from '../../actions/reports.actions';
+import {map} from 'rxjs/operators';
+import {ReportTypes} from '../../models/report.model';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +18,18 @@ export class HeaderComponent implements OnInit {
   @Input() brand: string;
 
   public user: User;
+  public isCheckIn = false;
 
-  constructor(private authService: AuthService, private database: AngularFireDatabase) {
+  constructor(private authService: AuthService, private database: AngularFireDatabase, private store: Store<State>) {
   }
 
   ngOnInit(): void {
+    this.store.select('reports').pipe(
+      map(reportsState => (reportsState.reports))
+    ).subscribe((reports) => {
+      const index = reports.findIndex((value) => value.type === ReportTypes.checkIn);
+      this.isCheckIn = index !== -1;
+    });
     let callback = null;
     let metadataRef = null;
     this.authService.getUser().onAuthStateChanged((user: User) => {
@@ -45,5 +57,11 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.doLogout();
+  }
+
+  doImHere() {
+    if (!this.isCheckIn) {
+      this.store.dispatch(reportListActions.iAmHereReport());
+    }
   }
 }

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ReportsService} from '../../services/reports.service';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Report} from '../../models/report.model';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {State} from '../../reducers';
 import * as fromReportList from '../../reducers/reports.reducer';
 import * as reportListActions from '../../actions/reports.actions';
+import {ReportTypes} from '../../models/report.model';
 
 @Component({
   selector: 'app-reports',
@@ -29,5 +29,9 @@ export class ReportsComponent implements OnInit {
 
   addReport() {
     this.store.dispatch(reportListActions.startAdd());
+  }
+
+  get reportTypes() {
+    return ReportTypes;
   }
 }

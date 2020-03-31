@@ -13,3 +13,5 @@ export const editReport = createAction('[Report list] Editing report', props<{ r
 
 export const doneAddOrEdit = createAction('[Report list] Done adding or editing report');
 export const stopAddOrEdit = createAction('[Report list] Stop adding or editing report');
+
+export const iAmHereReport = createAction('[Report list] Adding I\'m Here report');

@@ -5,7 +5,7 @@ import {ReportsService} from '../../../services/reports.service';
 import * as reportListActions from '../../../actions/reports.actions';
 import {Store} from '@ngrx/store';
 import {State} from '../../../reducers';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-manage-report',
@@ -23,7 +23,7 @@ export class ManageReportComponent implements OnInit, OnDestroy {
     ], [Validators.required, Validators.minLength(1)])
   });
 
-  constructor(private fb: FormBuilder, private reportService: ReportsService, private store: Store<State>, private modalService: NgbModal) {
+  constructor(private fb: FormBuilder, private reportService: ReportsService, private store: Store<State>, private router: Router) {
     const type = this.calculateCurrentSuggestedType();
     this.reportForm.patchValue({type});
   }
@@ -84,8 +84,10 @@ export class ManageReportComponent implements OnInit, OnDestroy {
     const report = new Report(reportForm.type, reportForm.title, reportForm.items);
     if (this.editingMode) {
       this.store.dispatch(reportListActions.editReport({report}));
+      this.router.navigate(['/reports']);
     } else {
       this.store.dispatch(reportListActions.addReport({report}));
+      this.router.navigate(['/reports']);
     }
     // this.store.dispatch(reportsActions.storeReports());
     this.resetForm();
@@ -119,6 +121,7 @@ export class ManageReportComponent implements OnInit, OnDestroy {
   }
 
   onCancelEdit() {
+    this.router.navigate(['/reports']);
     this.store.dispatch(reportListActions.stopAddOrEdit());
   }
 

@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import * as ReportListActions from '../actions/reports.actions.js';
-import {Report} from '../models/report.model';
+import {Report, ReportTypes} from '../models/report.model';
 
 export interface State {
   reports: Report[];
@@ -33,7 +33,7 @@ const reportsReducer = createReducer(
     const index = state.reports.findIndex((report) => {
       return report.key === action.reportID;
     });
-    if (-1 === index) {
+    if (-1 === index || state.reports[index].type === ReportTypes.checkIn) {
       return {
         ...state,
         showForm: false,

@@ -23,6 +23,7 @@ import {ReportDetailComponent} from './components/reports/report-detail/report-d
 import {ManageReportComponent} from './components/reports/manage-report/manage-report.component';
 import {ReportEffects} from './effects/report.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReportListItemComponent } from './components/reports/report-list-item/report-list-item.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DashboardComponent,
     ReportsComponent,
     ReportDetailComponent,
-    ManageReportComponent
+    ManageReportComponent,
+    ReportListItemComponent
   ],
   imports: [
     BrowserModule,

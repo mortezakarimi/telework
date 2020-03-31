@@ -4,7 +4,7 @@ import * as ReportsActions from '../actions/reports.actions';
 import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Report} from '../models/report.model';
+import {Report, ReportTypes} from '../models/report.model';
 import {Store} from '@ngrx/store';
 import {State} from '../reducers';
 
@@ -67,6 +67,18 @@ export class ReportEffects {
     })
   );
 
+  @Effect()
+  iAmHereReport = this.actions$.pipe(ofType(ReportsActions.iAmHereReport),
+    withLatestFrom(this.afAuth.user),
+    switchMap(([actionData, userState]) => {
+        const hereReport = new Report(ReportTypes.checkIn, 'I\'m here', []);
+        return this.afDatabase.list<Report>(`reports/${userState.uid}`).push(hereReport);
+      }
+    ),
+    map(() => {
+      return ReportsActions.doneAddOrEdit();
+    })
+  );
 
   constructor(private actions$: Actions, private afDatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private store: Store<State>) {
   }
