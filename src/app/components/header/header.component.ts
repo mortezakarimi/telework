@@ -34,12 +34,10 @@ export class HeaderComponent implements OnInit {
           // Note this is always triggered on first call. Further optimization could be
           // added to avoid the initial trigger when the token is issued and already contains
           // the latest claims.
-          console.log('token refresh');
           user.getIdToken(true);
         };
         // Subscribe new listener to changes on that node.
         metadataRef.on('value', callback);
-        console.log('user data:', user);
         this.user = user;
       }
     });

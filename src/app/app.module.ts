@@ -8,6 +8,9 @@ import {metaReducers, reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,6 +19,10 @@ import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {RegisterComponent} from './components/register/register.component';
 import {environment} from '../environments/environment';
+import {ReportsComponent} from './components/reports/reports.component';
+import {ReportDetailComponent} from './components/reports/report-detail/report-detail.component';
+import {ManageReportComponent} from './components/reports/manage-report/manage-report.component';
+import {ReportEffects} from './effects/report.effects';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,10 @@ import {environment} from '../environments/environment';
     LoginComponent,
     HeaderComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReportsComponent,
+    ReportDetailComponent,
+    ManageReportComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,10 @@ import {environment} from '../environments/environment';
     StoreModule.forRoot(reducers, {
       metaReducers
     }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([ReportEffects]),
+    NgbModalModule,
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]

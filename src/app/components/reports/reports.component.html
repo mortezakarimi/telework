@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="p-4" [ngClass]="(reports$|async).showForm?'col-6':'col-12'">
+    <h2>
+      <span>Today reports</span>
+      <button class="btn btn-success ml-5 btn-sm" type="button" (click)="addReport()">Add Report</button>
+    </h2>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action flex-column align-items-start"
+         *ngFor="let report of (reports$|async).reports;let i = index" (click)="manageReport(report.key)">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{report.title}}</h5>
+          <small>{{report.createdAt | date:'medium'}}</small>
+        </div>
+        <p class="mb-1" *ngFor="let item of report.items">{{item.content}}</p>
+      </a>
+    </div>
+  </div>
+  <div class="col-6 p-4" [ngClass]="{'d-none':!(reports$|async).showForm}">
+    <app-manage-report></app-manage-report>
+  </div>
+</div>

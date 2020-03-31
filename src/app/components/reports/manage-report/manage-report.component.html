@@ -1,0 +1,76 @@
+<h2>
+  {{formTitle}}
+</h2>
+<div class="card">
+  <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="title">{{'Title'}}</label>
+        <div class="input-group">
+          <input type="text" name="title" id="title" class="form-control" placeholder="Enter report title"
+                 formControlName="title">
+          <div class="input-group-append">
+            <div class="form-group">
+              <label for="type" class="sr-only">Type</label>
+              <select class="custom-select" name="type" id="type" formControlName="type">
+                <option [ngValue]="reportTypeList.FirstDay">First day report</option>
+                <option [ngValue]="reportTypeList.MidDay">Midday report</option>
+                <option [ngValue]="reportTypeList.EndDay">End day report</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="report-items" formArrayName="items">
+        <button class="btn btn-success" type="button" (click)="addReportItem()">{{'Add report item'}}</button>
+        <div class="row" *ngIf="items">
+          <div class="col-12 p-3" *ngFor="let itemControl of items.controls;let i = index">
+            <div class="row">
+              <div class="col-12 text-right">
+                <div class="btn btn-outline-danger btn-sm" (click)="removeItem(i)" *ngIf="items.length > 1"><span
+                  aria-hidden="true">&nbsp;&times;&nbsp;</span></div>
+              </div>
+            </div>
+            <div class="row" [formGroupName]="i">
+              <div class="col-9">
+                <div class="form-group">
+                  <label for="content" class="sr-only">{{'Content'}}</label>
+                  <div class="input-group">
+          <textarea class="form-control" name="content" id="content" rows="3"
+                    placeholder="Enter task description" formControlName="content"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" formControlName="status" id="status1{{i}}"
+                         [value]="reportItemStatusList.WorkInProgress"
+                         checked>
+                  <label class="custom-control-label" for="status1{{i}}">Work in progress</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" formControlName="status" id="status2{{i}}"
+                         [value]="reportItemStatusList.Done">
+                  <label class="custom-control-label" for="status2{{i}}">Done</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-6">
+          <button type="button" class="btn btn-outline-danger" (click)="onCancelEdit()">Cancel</button>
+        </div>
+        <div class="col-6 text-right">
+          <button class="btn btn-primary" type="submit" [disabled]="reportForm.invalid">Send
+            report
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
