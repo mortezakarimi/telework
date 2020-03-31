@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {RegisterComponent} from './components/register/register.component';
 import {AngularFireAuthGuard, hasCustomClaim, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+
+import {AuthComponent} from './components/auth/auth.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {ReportsComponent} from './components/reports/reports.component';
 import {ManageReportComponent} from './components/reports/manage-report/manage-report.component';
 import {ReportDetailComponent} from './components/reports/report-detail/report-detail.component';
@@ -42,15 +42,15 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: AuthComponent,
     canActivate: [AngularFireAuthGuard],
-    data: {authGuardPipe: redirectLoggedInToItems}
+    data: {authGuardPipe: redirectLoggedInToItems, registration: false}
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    component: AuthComponent,
     canActivate: [AngularFireAuthGuard],
-    data: {authGuardPipe: redirectLoggedInToItems}
+    data: {authGuardPipe: redirectLoggedInToItems, registration: true}
   }
 ];
 

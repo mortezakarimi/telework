@@ -14,23 +14,22 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './components/login/login.component';
+import {AuthComponent} from './components/auth/auth.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {RegisterComponent} from './components/register/register.component';
 import {environment} from '../environments/environment';
 import {ReportsComponent} from './components/reports/reports.component';
 import {ReportDetailComponent} from './components/reports/report-detail/report-detail.component';
 import {ManageReportComponent} from './components/reports/manage-report/manage-report.component';
 import {ReportEffects} from './effects/report.effects';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    AuthComponent,
     HeaderComponent,
     DashboardComponent,
-    RegisterComponent,
     ReportsComponent,
     ReportDetailComponent,
     ManageReportComponent
@@ -49,7 +48,8 @@ import {ReportEffects} from './effects/report.effects';
     EffectsModule.forRoot([ReportEffects]),
     NgbModalModule,
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
