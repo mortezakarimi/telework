@@ -37,18 +37,6 @@ export class AuthComponent implements OnInit {
     }
   }
 
-  private tryLogin(value) {
-    this.authService.doEmailLogin(value)
-      .then(res => {
-        this.errorMessage = '';
-        this.successMessage = 'Your are logged in!';
-        this.router.navigate(['/']);
-      }, err => {
-        this.errorMessage = err.message;
-        this.successMessage = '';
-      });
-  }
-
   googleLogin() {
     this.authService.doGoogleLogin()
       .then(res => {
@@ -61,6 +49,17 @@ export class AuthComponent implements OnInit {
       });
   }
 
+  private tryLogin(value) {
+    this.authService.doEmailLogin(value)
+      .then(res => {
+        this.errorMessage = '';
+        this.successMessage = 'Your are logged in!';
+        this.router.navigate(['/']);
+      }, err => {
+        this.errorMessage = err.message;
+        this.successMessage = '';
+      });
+  }
 
   private tryRegister(value) {
     this.authService.doRegister(value)

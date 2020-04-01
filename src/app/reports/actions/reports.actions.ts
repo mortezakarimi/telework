@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Report} from '../models/report.model';
+import {Report} from '../report.model';
 
 export const fetchTodayReports = createAction('[Report list] fetch today reports');
 export const fetchReports = createAction('[Report list] fetch reports');

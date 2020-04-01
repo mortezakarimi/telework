@@ -13,7 +13,7 @@ const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [
   {
-    path: 'reports',
+    path: '',
     component: ReportsComponent,
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: redirectUnauthorizedToLogin},
@@ -35,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class ReportsRoutingModule {

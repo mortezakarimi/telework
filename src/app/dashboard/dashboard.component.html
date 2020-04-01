@@ -4,9 +4,19 @@
       <span>Today's reports</span>
     </h2>
     <div class="list-group">
-      <a class="list-group-item list-group-item-action flex-column align-items-start"
-         *ngFor="let report of (reports$|async).reports;let i = index">
-        <app-report-list-item [report]="report"></app-report-list-item>
+      <a *ngFor="let report of (reports$|async).reports;let i = index"
+         class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{report.title}}</h5>
+          <small>{{report.createdAt | date:'medium'}}</small>
+        </div>
+        <p class="mb-1"><span [ngClass]="{
+          'badge-success':report.type === reportTypes.checkIn,
+          'badge-primary':report.type === reportTypes.FirstDay,
+          'badge-warning':report.type === reportTypes.MidDay,
+          'badge-danger':report.type === reportTypes.EndDay
+          }" class="badge">{{getTypeName(report.type)}}</span></p>
+
       </a>
     </div>
   </div>

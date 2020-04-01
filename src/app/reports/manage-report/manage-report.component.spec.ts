@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ManageReportComponent } from './manage-report.component';
+import {ManageReportComponent} from './manage-report.component';
 
 describe('ManageReportComponent', () => {
   let component: ManageReportComponent;
@@ -8,9 +8,9 @@ describe('ManageReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageReportComponent ]
+      declarations: [ManageReportComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

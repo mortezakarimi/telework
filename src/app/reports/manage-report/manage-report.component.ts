@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Report, ReportItem, ReportItemsStatus, ReportTypes} from '../../models/report.model';
+import {Report, ReportItem, ReportItemsStatus, ReportTypes} from '../report.model';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReportsService} from '../../services/reports.service';
-import * as reportListActions from '../../actions/reports.actions';
+import * as reportListActions from '../actions/reports.actions';
 import {Store} from '@ngrx/store';
 import {State} from '../../reducers';
 import {Router} from '@angular/router';
@@ -14,7 +14,6 @@ import {Router} from '@angular/router';
 })
 export class ManageReportComponent implements OnInit, OnDestroy {
   public editingMode = false;
-  private title;
   public reportForm: FormGroup = this.fb.group({
     title: [null, [Validators.required]],
     type: [null, [Validators.required]],
@@ -22,10 +21,28 @@ export class ManageReportComponent implements OnInit, OnDestroy {
       this.createReportItem()
     ], [Validators.required, Validators.minLength(1)])
   });
+  private title;
 
   constructor(private fb: FormBuilder, private reportService: ReportsService, private store: Store<State>, private router: Router) {
     const type = this.calculateCurrentSuggestedType();
     this.reportForm.patchValue({type});
+  }
+
+  get items() {
+    return this.reportForm.get('items') as FormArray;
+  }
+
+  get reportTypeList() {
+    return ReportTypes;
+  }
+
+  get reportItemStatusList() {
+    return ReportItemsStatus;
+  }
+
+  get formTitle() {
+
+    return this.editingMode ? 'Edit ' + this.title : 'Add report';
   }
 
   ngOnInit(): void {
@@ -52,10 +69,6 @@ export class ManageReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  get items() {
-    return this.reportForm.get('items') as FormArray;
-  }
-
   createReportItem(reportItem: ReportItem = {content: null, status: ReportItemsStatus.WorkInProgress}): FormGroup {
     return this.fb.group({
       content: [reportItem.content, [Validators.required]],
@@ -66,14 +79,6 @@ export class ManageReportComponent implements OnInit, OnDestroy {
   addReportItem() {
     const control = this.createReportItem();
     this.items.push(control);
-  }
-
-  get reportTypeList() {
-    return ReportTypes;
-  }
-
-  get reportItemStatusList() {
-    return ReportItemsStatus;
   }
 
   submitReport() {
@@ -91,6 +96,19 @@ export class ManageReportComponent implements OnInit, OnDestroy {
     }
     // this.store.dispatch(reportsActions.storeReports());
     this.resetForm();
+  }
+
+  onCancelEdit() {
+    this.router.navigate(['/reports']);
+    this.store.dispatch(reportListActions.stopAddOrEdit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(reportListActions.stopAddOrEdit());
+  }
+
+  removeItem(itemIndex: number) {
+    this.items.removeAt(itemIndex);
   }
 
   private resetForm() {
@@ -118,23 +136,5 @@ export class ManageReportComponent implements OnInit, OnDestroy {
       type = ReportTypes.EndDay;
     }
     return type;
-  }
-
-  onCancelEdit() {
-    this.router.navigate(['/reports']);
-    this.store.dispatch(reportListActions.stopAddOrEdit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(reportListActions.stopAddOrEdit());
-  }
-
-  get formTitle() {
-
-    return this.editingMode ? 'Edit ' + this.title : 'Add report';
-  }
-
-  removeItem(itemIndex: number) {
-    this.items.removeAt(itemIndex);
   }
 }

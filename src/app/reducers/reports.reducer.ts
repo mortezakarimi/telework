@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import * as ReportListActions from '../actions/reports.actions.js';
-import {Report, ReportTypes} from '../models/report.model';
+import * as ReportListActions from '../reports/actions/reports.actions.js';
+import {Report, ReportTypes} from '../reports/report.model';
 
 export interface State {
   reports: Report[];

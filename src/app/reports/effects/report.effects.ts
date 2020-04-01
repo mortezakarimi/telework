@@ -4,9 +4,9 @@ import * as ReportsActions from '../actions/reports.actions';
 import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Report, ReportTypes} from '../models/report.model';
+import {Report, ReportTypes} from '../report.model';
 import {Store} from '@ngrx/store';
-import {State} from '../reducers';
+import {State} from '../../reducers';
 
 @Injectable()
 export class ReportEffects {

@@ -1,20 +1,20 @@
 <div class="row">
-  <div class="p-4" [ngClass]="(reports$|async).showForm?'col-6':'col-12'">
+  <div [ngClass]="(reports$|async).showForm?'col-6':'col-12'" class="p-4">
     <h2>
       <span>All reports</span>
-      <a class="btn btn-success ml-5 btn-sm" routerLink="/reports/add" (click)="addReport()">Add Report</a>
+      <a (click)="addReport()" class="btn btn-success ml-5 btn-sm" routerLink="/reports/add">Add Report</a>
     </h2>
     <div class="list-group">
-      <a class="list-group-item list-group-item-action flex-column align-items-start"
-         [routerLink]="report.type !== reportTypes.checkIn?[report.key,'edit']:[]"
-         [ngClass]="{'stretched-link':report.type !== reportTypes.checkIn}"
+      <a (click)="report.type !== reportTypes.checkIn ? manageReport(report.key):''"
          *ngFor="let report of (reports$|async).reports"
-         (click)="report.type !== reportTypes.checkIn ? manageReport(report.key):''">
+         [ngClass]="{'stretched-link':report.type !== reportTypes.checkIn}"
+         [routerLink]="report.type !== reportTypes.checkIn?[report.key,'edit']:[]"
+         class="list-group-item list-group-item-action flex-column align-items-start">
         <app-report-list-item [report]="report"></app-report-list-item>
       </a>
     </div>
   </div>
-  <div class="col-6 p-4" [ngClass]="{'d-none':!(reports$|async).showForm}">
+  <div [ngClass]="{'d-none':!(reports$|async).showForm}" class="col-6 p-4">
     <app-manage-report></app-manage-report>
   </div>
 </div>

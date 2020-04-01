@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Report} from '../models/report.model';
+import {Report} from '../reports/report.model';
 import {map} from 'rxjs/operators';
 
 @Injectable({

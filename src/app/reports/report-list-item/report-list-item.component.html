@@ -2,9 +2,9 @@
   <h5 class="mb-1">{{report.title}}</h5>
   <small>{{report.createdAt | date:'medium'}}</small>
 </div>
-<p class="mb-1"><span class="badge" [ngClass]="{
+<p class="mb-1"><span [ngClass]="{
           'badge-success':report.type === reportTypes.checkIn,
           'badge-primary':report.type === reportTypes.FirstDay,
           'badge-warning':report.type === reportTypes.MidDay,
           'badge-danger':report.type === reportTypes.EndDay
-          }">{{getTypeName(report.type)}}</span></p>
+          }" class="badge">{{getTypeName(report.type)}}</span></p>

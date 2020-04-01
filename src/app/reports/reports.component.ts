@@ -5,8 +5,8 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {State} from '../reducers';
 import * as fromReportList from '../reducers/reports.reducer';
-import * as reportListActions from '../actions/reports.actions';
-import {ReportTypes} from '../models/report.model';
+import * as reportListActions from './actions/reports.actions';
+import {ReportTypes} from './report.model';
 
 @Component({
   selector: 'app-reports',
@@ -19,6 +19,10 @@ export class ReportsComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private reportService: ReportsService, private store: Store<State>) {
   }
 
+  get reportTypes() {
+    return ReportTypes;
+  }
+
   ngOnInit() {
     this.store.dispatch(reportListActions.fetchReports());
   }
@@ -29,9 +33,5 @@ export class ReportsComponent implements OnInit {
 
   addReport() {
     this.store.dispatch(reportListActions.startAdd());
-  }
-
-  get reportTypes() {
-    return ReportTypes;
   }
 }
