@@ -14,17 +14,18 @@
         <a class="nav-link" href="#" routerLink="/reports">{{'Reports'}}</a>
       </li>
     </ul>
-    <button class="btn btn-outline-success mx-5" (click)="doImHere()" *ngIf="!isCheckIn">I'm Here</button>
+    <button class="btn btn-outline-success mx-5" (click)="doImHere()" *ngIf="user && !isCheckIn">I'm Here</button>
     <ul class="navbar-nav ml-auto">
-      <ng-container *ngIf="user; else notLoginUserMenuItems">
+
+      <ng-container *ngIf="!!user; else notLoginUserMenuItems">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#" routerLink="/profile"></a>
+          <a class="nav-link" routerLink="/profile"></a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#" routerLink="/profile">{{user.displayName}}</a>
+          <a class="nav-link" routerLink="/profile">{{user.displayName}}</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#" (click)="logout()">{{'Logout'}}</a>
+          <a class="nav-link" [routerLink]="[]" (click)="logout()">{{'Logout'}}</a>
         </li>
       </ng-container>
       <ng-template #notLoginUserMenuItems>

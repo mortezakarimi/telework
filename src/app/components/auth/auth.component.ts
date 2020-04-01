@@ -5,77 +5,72 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {faGoogle} from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './auth.component.html',
-    styleUrls: ['./auth.component.scss']
+  selector: 'app-login',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-    public loginForm: FormGroup;
-    public errorMessage: string;
-    public successMessage: string;
-    faGoogle = faGoogle;
-    public isRegister: boolean;
+  public loginForm: FormGroup;
+  public errorMessage: string;
+  public successMessage: string;
+  faGoogle = faGoogle;
+  public isRegister: boolean;
 
-    constructor(private fb: FormBuilder, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      this.isRegister = data.registration;
+      this.loginForm = this.fb.group({
+        email: [''],
+        password: ['']
+      });
+    });
+  }
+
+  tryAuth(value) {
+    if (this.isRegister) {
+      this.tryRegister(value);
+    } else {
+      this.tryLogin(value);
     }
+  }
 
-    ngOnInit(): void {
-        this.route.data.subscribe((data) => {
-            this.isRegister = data.registration;
-            console.log(this.isRegister);
-            this.loginForm = this.fb.group({
-                email: [''],
-                password: ['']
-            });
-        });
-    }
+  private tryLogin(value) {
+    this.authService.doEmailLogin(value)
+      .then(res => {
+        this.errorMessage = '';
+        this.successMessage = 'Your are logged in!';
+        this.router.navigate(['/']);
+      }, err => {
+        this.errorMessage = err.message;
+        this.successMessage = '';
+      });
+  }
 
-    tryAuth(value) {
-        if (this.isRegister) {
-            this.tryRegister(value);
-        } else {
-            this.tryLogin(value);
-        }
-    }
-
-    private tryLogin(value) {
-        this.authService.doEmailLogin(value)
-            .then(res => {
-                console.log(res);
-                this.errorMessage = '';
-                this.successMessage = 'Your are logged in!';
-                this.router.navigate(['/']);
-            }, err => {
-                console.log(err);
-                this.errorMessage = err.message;
-                this.successMessage = '';
-            });
-    }
-
-    googleLogin() {
-        this.authService.doGoogleLogin()
-            .then(res => {
-                console.log(res);
-                this.errorMessage = '';
-                this.successMessage = 'Your are logged in!';
-                return this.router.navigate(['/']);
-            }, err => {
-                console.log(err);
-                this.errorMessage = err.message;
-                this.successMessage = '';
-            });
-    }
+  googleLogin() {
+    this.authService.doGoogleLogin()
+      .then(res => {
+        this.errorMessage = '';
+        this.successMessage = 'Your are logged in!';
+        return this.router.navigate(['/']);
+      }, err => {
+        this.errorMessage = err.message;
+        this.successMessage = '';
+      });
+  }
 
 
-    private tryRegister(value) {
-        this.authService.doRegister(value)
-            .then(res => {
-                this.errorMessage = '';
-                this.successMessage = 'Your account has been created';
-                return this.router.navigate(['/']);
-            }, err => {
-                this.errorMessage = err.message;
-                this.successMessage = '';
-            });
-    }
+  private tryRegister(value) {
+    this.authService.doRegister(value)
+      .then(res => {
+        this.errorMessage = '';
+        this.successMessage = 'Your account has been created';
+        return this.router.navigate(['/']);
+      }, err => {
+        this.errorMessage = err.message;
+        this.successMessage = '';
+      });
+  }
 }

@@ -47,7 +47,6 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signOut().then(() => {
         resolve(true);
-        this.router.navigate(['/login']);
       }).catch((error) => {
         reject(error);
       });
@@ -55,6 +54,6 @@ export class AuthService {
   }
 
   getUser() {
-    return this.afAuth.auth;
+    return this.afAuth.authState;
   }
 }
