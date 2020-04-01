@@ -14,44 +14,31 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthComponent} from './components/auth/auth.component';
-import {HeaderComponent} from './components/header/header.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {AuthComponent} from './auth/auth.component';
+import {HeaderComponent} from './header/header.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 import {environment} from '../environments/environment';
-import {ReportsComponent} from './components/reports/reports.component';
-import {ReportDetailComponent} from './components/reports/report-detail/report-detail.component';
-import {ManageReportComponent} from './components/reports/manage-report/manage-report.component';
+import {ReportsComponent} from './reports/reports.component';
+import {ReportDetailComponent} from './reports/report-detail/report-detail.component';
+import {ManageReportComponent} from './reports/manage-report/manage-report.component';
 import {ReportEffects} from './effects/report.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReportListItemComponent } from './components/reports/report-list-item/report-list-item.component';
+import { ReportListItemComponent } from './reports/report-list-item/report-list-item.component';
+import {SharedModule} from './shared/shared.module';
+import {AuthModule} from './auth/auth.module';
+import {ReportsModule} from './reports/reports.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     HeaderComponent,
-    DashboardComponent,
-    ReportsComponent,
-    ReportDetailComponent,
-    ManageReportComponent,
-    ReportListItemComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
-    AngularFireAuthGuardModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers
-    }),
-    EffectsModule.forRoot([ReportEffects]),
-    NgbModalModule,
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    StoreRouterConnectingModule.forRoot(),
-    FontAwesomeModule
+    AuthModule,
+    ReportsModule
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import * as reportListActions from '../../actions/reports.actions';
+import * as reportListActions from '../actions/reports.actions';
 import {Store} from '@ngrx/store';
-import {State} from '../../reducers';
+import {State} from '../reducers';
 import {Observable} from 'rxjs';
-import * as fromReportList from '../../reducers/reports.reducer';
+import * as fromReportList from '../reducers/reports.reducer';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../services/auth.service';
 import {User} from 'firebase';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {Store} from '@ngrx/store';
-import {State} from '../../reducers';
-import * as reportListActions from '../../actions/reports.actions';
+import {State} from '../reducers';
+import * as reportListActions from '../actions/reports.actions';
 import {map} from 'rxjs/operators';
-import {ReportTypes} from '../../models/report.model';
+import {ReportTypes} from '../models/report.model';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 

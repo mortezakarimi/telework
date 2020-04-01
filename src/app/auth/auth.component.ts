@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {faGoogle} from '@fortawesome/free-brands-svg-icons';
 

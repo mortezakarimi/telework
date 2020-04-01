@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Report, ReportItem, ReportItemsStatus, ReportTypes} from '../../../models/report.model';
+import {Report, ReportItem, ReportItemsStatus, ReportTypes} from '../../models/report.model';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ReportsService} from '../../../services/reports.service';
-import * as reportListActions from '../../../actions/reports.actions';
+import {ReportsService} from '../../services/reports.service';
+import * as reportListActions from '../../actions/reports.actions';
 import {Store} from '@ngrx/store';
-import {State} from '../../../reducers';
+import {State} from '../../reducers';
 import {Router} from '@angular/router';
 
 @Component({

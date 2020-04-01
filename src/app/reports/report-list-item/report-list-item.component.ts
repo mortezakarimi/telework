@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReportTypes} from '../../../models/report.model';
+import {ReportTypes} from '../../models/report.model';
 
 @Component({
   selector: 'app-report-list-item',
