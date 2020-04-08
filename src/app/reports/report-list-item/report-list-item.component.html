@@ -1,6 +1,6 @@
 <div class="d-flex w-100 justify-content-between">
   <h5 class="mb-1">{{report.title}}</h5>
-  <small>{{report.createdAt | date:'medium'}}</small>
+  <small>{{report.createdAt | agoDate:'hour': 'medium'}}</small>
 </div>
 <p class="mb-1"><span [ngClass]="{
           'badge-success':report.type === reportTypes.checkIn,

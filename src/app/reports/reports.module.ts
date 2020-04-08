@@ -7,6 +7,8 @@ import {ManageReportComponent} from './manage-report/manage-report.component';
 import {ReportListItemComponent} from './report-list-item/report-list-item.component';
 import {SharedModule} from '../shared/shared.module';
 import {UnlessDirective} from './directives/unless/unless.directive';
+import {AgoDatePipe} from './pipes/ago-date/ago-date.pipe';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -15,12 +17,16 @@ import {UnlessDirective} from './directives/unless/unless.directive';
     ReportDetailComponent,
     ManageReportComponent,
     ReportListItemComponent,
-    UnlessDirective
+    UnlessDirective,
+    AgoDatePipe
   ],
   imports: [
     SharedModule,
     ReportsRoutingModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    DatePipe
   ],
   exports: [
     ReportListItemComponent
