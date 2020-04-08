@@ -15,8 +15,8 @@ const routes: Routes = [
   {
     path: '',
     component: ReportsComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: {authGuardPipe: redirectUnauthorizedToLogin},
+    // canActivate: [AngularFireAuthGuard],
+    // data: {authGuardPipe: redirectUnauthorizedToLogin},
     children: [
       {
         path: 'add',

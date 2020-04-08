@@ -6,6 +6,7 @@ import {ReportDetailComponent} from './report-detail/report-detail.component';
 import {ManageReportComponent} from './manage-report/manage-report.component';
 import {ReportListItemComponent} from './report-list-item/report-list-item.component';
 import {SharedModule} from '../shared/shared.module';
+import {UnlessDirective} from './directives/unless/unless.directive';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {SharedModule} from '../shared/shared.module';
     ReportsComponent,
     ReportDetailComponent,
     ManageReportComponent,
-    ReportListItemComponent
+    ReportListItemComponent,
+    UnlessDirective
   ],
   imports: [
     SharedModule,
