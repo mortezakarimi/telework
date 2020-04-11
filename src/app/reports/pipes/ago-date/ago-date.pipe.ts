@@ -18,7 +18,7 @@ export class AgoDatePipe implements PipeTransform {
   constructor(private datePipe: DatePipe) {
   }
 
-  transform(value: any, maxIntervalAgo = 'hour', format?: string, timezone?: string, locale?: string): string | null {
+  transform(value: any, maxIntervalAgo = 'day', format?: string, timezone?: string, locale?: string): string | null {
     if (value) {
       const seconds = Math.floor(((new Date()).getTime() - (new Date(value)).getTime()) / 1000);
       if (seconds < 59) {

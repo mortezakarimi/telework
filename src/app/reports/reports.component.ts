@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ReportsService} from '../services/reports.service';
 import {Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {State} from '../reducers';
+import {select, Store} from '@ngrx/store';
+import {getReports, State} from '../reducers';
 import * as fromReportList from '../reducers/reports.reducer';
 import * as reportListActions from './actions/reports.actions';
 import {ReportTypes} from './report.model';
@@ -14,9 +14,9 @@ import {ReportTypes} from './report.model';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
-  public reports$: Observable<fromReportList.State> = this.store.select('reports');
+  public reports$: Observable<fromReportList.State> = this.store.pipe(select(getReports));
 
-  constructor(private afAuth: AngularFireAuth, private reportService: ReportsService, private store: Store<State>) {
+  constructor(private store: Store<State>) {
   }
 
   get reportTypes() {

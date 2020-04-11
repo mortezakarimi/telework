@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   public user: User;
   public isCheckIn = false;
 
-  constructor(private authService: AuthService, private database: AngularFireDatabase, private store: Store<State>, private router: Router, private afAuth: AngularFireAuth) {
+  constructor(private authService: AuthService, private database: AngularFireDatabase, private store: Store<State>, private router: Router) {
   }
 
   ngOnInit(): void {

@@ -2,7 +2,8 @@
   <div [ngClass]="reports.showForm?'col-6':'col-12'" class="p-4">
     <h2>
       <span>All reports</span>
-      <a *appUnless="reports.showForm" (click)="addReport()" class="btn btn-success ml-5 btn-sm" routerLink="/reports/add">Add Report</a>
+      <a id="addReportBtn" *ngIf="!reports.showForm" (click)="addReport()" class="btn btn-success ml-5 btn-sm"
+         routerLink="/reports/add">Add Report</a>
     </h2>
     <div class="list-group">
       <a (click)="report.type !== reportTypes.checkIn ? manageReport(report.key):''"

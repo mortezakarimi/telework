@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
+  constructor(public afAuth: AngularFireAuth) {
   }
 
   doGoogleLogin() {
@@ -24,7 +23,7 @@ export class AuthService {
     });
   }
 
-  doEmailLogin(value) {
+  doEmailLogin(value: AuthData) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth
         .signInWithEmailAndPassword(value.email, value.password)
@@ -34,7 +33,7 @@ export class AuthService {
     });
   }
 
-  doRegister(value) {
+  doRegister(value: AuthData) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
         .then(res => {
@@ -56,4 +55,9 @@ export class AuthService {
   getUser() {
     return this.afAuth.authState;
   }
+}
+
+interface AuthData {
+  email: string;
+  password: string;
 }
